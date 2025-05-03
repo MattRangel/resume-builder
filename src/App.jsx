@@ -1,12 +1,25 @@
 import "./App.css";
+import { Form as ResumeForm, Display as ResumeDisplay } from "./Resume.jsx";
+import { useState } from "react";
 
 function App() {
+  const [resumeData, setResumeData] = useState({});
+  const [editMode, setEditMode] = useState(true);
+
   return (
     <>
-      <h1>Vite + React</h1>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {editMode ? (
+        <ResumeForm
+          data={resumeData}
+          uploadData={setResumeData}
+          leaveEditMode={() => setEditMode(false)}
+        />
+      ) : (
+        <ResumeDisplay
+          data={resumeData}
+          enterEditMode={() => setEditMode(true)}
+        />
+      )}
     </>
   );
 }
