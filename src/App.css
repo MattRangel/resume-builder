@@ -1,0 +1,15 @@
+label {
+  margin: 0.5rem 0;
+}
+
+fieldset {
+  width: fit-content;
+}
+
+fieldset > label {
+  display: block;
+}
+
+button {
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}

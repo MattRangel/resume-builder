@@ -2,14 +2,46 @@ import { useState } from "react";
 
 export function Form({ data, uploadData, leaveEditMode }) {
   const repeatingElements = {
-    education: ({ name = "" }) => {
+    education: ({
+      name = "",
+      startDate = "",
+      endDate = "",
+      endDateIsCurrent = true,
+      studyTitle = "",
+    }) => {
       return (
         <>
           <label>
-            Education Name:{" "}
+            Institution Name:{" "}
             <input name="name" type="text" defaultValue={name} />
           </label>
+
           <br />
+
+          <label>
+            Title of Study:{" "}
+            <input name="studyTitle" type="text" defaultValue={studyTitle} />
+          </label>
+
+          <fieldset>
+            <legend>Dates attended:</legend>
+            <label>
+              Start Date:
+              <input name="startDate" type="date" defaultValue={startDate} />
+            </label>
+            <label>
+              End Date:
+              <input name="endDate" type="date" defaultValue={endDate} />{" "}
+            </label>
+            <label>
+              Currently Attending?{" "}
+              <input
+                name="endDateIsCurrent"
+                type="checkbox"
+                defaultChecked={endDateIsCurrent}
+              />
+            </label>
+          </fieldset>
         </>
       );
     },
@@ -32,10 +64,12 @@ export function Form({ data, uploadData, leaveEditMode }) {
       dataObject[section] = elementList
         .map((element) => Array.from(element.querySelectorAll("input")))
         .map((inputList) =>
-          inputList.reduce(
-            (obj, input) => Object.assign(obj, { [input.name]: input.value }),
-            {},
-          ),
+          inputList.reduce((obj, input) => {
+            return Object.assign(obj, {
+              [input.name]:
+                input[input.type === "checkbox" ? "checked" : "value"],
+            });
+          }, {}),
         );
       if (!repeatingItem) {
         dataObject[section] = dataObject[section][0];
@@ -54,8 +88,8 @@ export function Form({ data, uploadData, leaveEditMode }) {
 
   return (
     <form onSubmit={sendData}>
-      <fieldset data-section="personal">
-        <legend>Personal Info</legend>
+      <div data-section="personal">
+        <h2>Personal Info</h2>
         <label>
           Name:{" "}
           <input
@@ -64,7 +98,7 @@ export function Form({ data, uploadData, leaveEditMode }) {
             defaultValue={data.personal?.name || ""}
           />
         </label>
-      </fieldset>
+      </div>
       <RepeatableFormSection
         title="Education"
         sectionName="education"
@@ -85,9 +119,9 @@ export function Display({ data, enterEditMode }) {
     <div>
       <button onClick={enterEditMode}>Edit</button>
       <h1>{data.personal.name}</h1>
-      {data.education.map((info, index) => (
+      {data.education.map((education, index) => (
         <>
-          <h2 key={index}>{info.name}</h2>
+          <h2 key={index}>{education.name}</h2>
         </>
       ))}
     </div>
@@ -118,8 +152,8 @@ function RepeatableFormSection({
   };
 
   return (
-    <fieldset>
-      <legend>{title}</legend>
+    <div>
+      <h2>{title}</h2>
       {elements.map((element, index) => (
         <div data-section={sectionName} key={element.key}>
           <button type="button" onClick={removeElement(index)}>
@@ -131,6 +165,6 @@ function RepeatableFormSection({
       <button type="button" onClick={addElement}>
         Insert {title.toLowerCase()}
       </button>
-    </fieldset>
+    </div>
   );
 }
