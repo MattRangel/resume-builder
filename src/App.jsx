@@ -1,5 +1,5 @@
 import "./App.css";
-import { Form as ResumeForm, Display as ResumeDisplay } from "./Resume.jsx";
+import { Form as ResumeForm, Display as ResumeDisplay } from "./components/Resume.jsx";
 import { useState } from "react";
 
 function App() {

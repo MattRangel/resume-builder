@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SuperForm, RepeatableFormSection } from "./SuperForm.jsx";
 
 export function Form({ data, uploadData, leaveEditMode }) {
   const repeatingElements = {
@@ -92,57 +93,13 @@ export function Form({ data, uploadData, leaveEditMode }) {
     },
   };
 
-  const createDataObject = () => {
-    const dataObject = {};
-    const sections = new Set(
-      Array.from(document.querySelectorAll("[data-section]")).map(
-        (element) => element.dataset.section,
-      ),
-    );
-
-    const valueOfInput = (element) => {
-      switch (element.type) {
-        case "checkbox":
-          return element.checked;
-        default:
-          return element.value;
-      }
-    };
-
-    sections.forEach((section) => {
-      const elementList = Array.from(
-        document.querySelectorAll(`[data-section="${section}"`),
-      );
-      const repeatingItem = Object.hasOwn(repeatingElements, section);
-
-      dataObject[section] = elementList
-        .map((element) =>
-          Array.from(element.querySelectorAll("input, textarea")),
-        )
-        .map((inputList) =>
-          inputList.reduce((obj, input) => {
-            return Object.assign(obj, {
-              [input.name]: valueOfInput(input),
-            });
-          }, {}),
-        );
-      if (!repeatingItem) {
-        dataObject[section] = dataObject[section][0];
-      }
-    });
-
-    return dataObject;
-  };
-
-  const sendData = () => {
-    const dataObject = createDataObject();
-    console.log(dataObject);
-    uploadData(dataObject);
+  const submitData = (data) => {
+    uploadData(data);
     leaveEditMode();
   };
 
   return (
-    <form onSubmit={sendData}>
+    <SuperForm submitData={submitData}>
       <div data-section="personal">
         <h2>Personal Info</h2>
         <label>
@@ -187,7 +144,7 @@ export function Form({ data, uploadData, leaveEditMode }) {
       <button type="button" onClick={leaveEditMode}>
         Discard Changes
       </button>
-    </form>
+    </SuperForm>
   );
 }
 
@@ -240,47 +197,6 @@ export function Display({ data, enterEditMode }) {
           </>
         ))}
       </section>
-    </div>
-  );
-}
-
-function RepeatableFormSection({
-  title,
-  RepeatingElement,
-  dataArray = [],
-  sectionName,
-}) {
-  const [elements, setElements] = useState(
-    dataArray.map((data, index) => <RepeatingElement {...data} key={index} />),
-  );
-
-  const addElement = () => {
-    setElements((elements) => [
-      ...elements,
-      <RepeatingElement key={+elements.at(-1)?.key + 1 || 0} />,
-    ]);
-  };
-
-  const removeElement = (index) => {
-    return () => {
-      setElements((elements) => elements.toSpliced(index, 1));
-    };
-  };
-
-  return (
-    <div>
-      <h2>{title}</h2>
-      {elements.map((element, index) => (
-        <div data-section={sectionName} key={element.key}>
-          <button type="button" onClick={removeElement(index)}>
-            Remove
-          </button>
-          {element}
-        </div>
-      ))}
-      <button type="button" onClick={addElement}>
-        Insert {title.toLowerCase()}
-      </button>
     </div>
   );
 }
