@@ -1,5 +1,7 @@
-import "./App.css";
-import { Form as ResumeForm, Display as ResumeDisplay } from "./components/Resume.jsx";
+import {
+  Form as ResumeForm,
+  Display as ResumeDisplay,
+} from "./components/Resume.jsx";
 import { useState } from "react";
 
 function App() {
@@ -8,6 +10,7 @@ function App() {
 
   return (
     <>
+      <title>⚒️ Resume Builder</title>
       {editMode ? (
         <ResumeForm
           data={resumeData}

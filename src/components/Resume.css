@@ -1,0 +1,82 @@
+body {
+  background-color: #add2cc;
+}
+
+form > div {
+  width: fit-content;
+  margin: 1rem 0 2rem;
+}
+
+section {
+  margin: 1rem 0 2rem;
+}
+
+fieldset {
+  width: fit-content;
+}
+
+label {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.3rem 0;
+
+  & input,
+  textarea {
+    flex: 1;
+  }
+}
+
+h2 {
+  display: inline;
+  font-weight: normal;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+h2 + button {
+  margin-left: 0.5rem;
+}
+
+p {
+  margin-top: 0;
+}
+
+button {
+  cursor: pointer;
+  border-style: none;
+  border-radius: 0.2rem;
+  padding: 0.2rem;
+  margin-right: 0.5rem;
+}
+
+button.negative {
+  background-color: #c5655d;
+}
+
+button.positive {
+  background-color: #50c983;
+}
+
+button.with-icon {
+  display: flex;
+  gap: 0.2rem;
+  justify-self: right;
+  margin: 0 0 0.5rem;
+}
+
+button.icon {
+  height: 1rem;
+}
+
+[data-repeating-section] {
+  background-color: #8aa7ae;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 1rem;
+  width: fit-content;
+  display: grid;
+}
+
+fieldset {
+  border-color: #677d79;
+}

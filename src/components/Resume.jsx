@@ -1,4 +1,6 @@
-import { useState } from "react";
+import "./Resume.css";
+import "./DisplayExport.css";
+
 import { SuperForm, RepeatableFormSection } from "./SuperForm.jsx";
 
 export function Form({ data, uploadData, leaveEditMode }) {
@@ -100,6 +102,12 @@ export function Form({ data, uploadData, leaveEditMode }) {
 
   return (
     <SuperForm submitData={submitData}>
+      <button type="submit" class="positive">
+        Update Resume
+      </button>
+      <button type="button" onClick={leaveEditMode} class="negative">
+        Discard Changes
+      </button>
       <div data-section="personal">
         <h2>Personal Info</h2>
         <label>
@@ -139,30 +147,20 @@ export function Form({ data, uploadData, leaveEditMode }) {
         RepeatingElement={repeatingElements.practical}
         dataArray={data.practical}
       />
-      <br />
-      <button type="submit">Update Resume</button>
-      <button type="button" onClick={leaveEditMode}>
-        Discard Changes
-      </button>
     </SuperForm>
   );
 }
 
 export function Display({ data, enterEditMode }) {
   return (
-    <div>
+    <>
       <button onClick={enterEditMode}>Edit</button>
       <section>
         <h1>{data.personal.name}</h1>
         <h3>Contact:</h3>
         <ul>
-          <li>
-            <a href={`mailto:${data.personal.email}`} />
-            {data.personal.email}
-          </li>
-          <li>
-            <a href={`tel:${data.personal.phone}`}>{data.personal.phone}</a>
-          </li>
+          <li>{data.personal.email}</li>
+          <li>{data.personal.phone}</li>
         </ul>
       </section>
       <section>
@@ -170,7 +168,9 @@ export function Display({ data, enterEditMode }) {
         {data.education?.map((education, index) => (
           <>
             <h2 key={index}>{education.name}</h2>
-            <h3>{education.studyTitle}</h3>
+            <strong>
+              <p>{education.studyTitle}</p>
+            </strong>
             <p>
               Attended from {education.startDate} to{" "}
               {education.endDateIsCurrent ? "now" : education.endDate}
@@ -183,7 +183,9 @@ export function Display({ data, enterEditMode }) {
         {data.practical?.map((practical) => (
           <>
             <h2>{practical.company}</h2>
-            <p>{practical.position}</p>
+            <strong>
+              <p>{practical.position}</p>
+            </strong>
             <p>
               Employed from {practical.startDate} to{" "}
               {practical.endDateIsCurrent ? "now" : practical.endDate}
@@ -197,6 +199,6 @@ export function Display({ data, enterEditMode }) {
           </>
         ))}
       </section>
-    </div>
+    </>
   );
 }

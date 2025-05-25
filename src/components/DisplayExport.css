@@ -1,0 +1,17 @@
+@media print {
+  #root {
+    display: grid;
+    background-color: white;
+    grid-template-columns: repeat(2, auto);
+    print-color-adjust: exact;
+  }
+
+  #root > section:first-of-type {
+    background-color: #e0e0e0;
+    grid-column-start: span 2;
+  }
+
+  button {
+    display: none;
+  }
+}

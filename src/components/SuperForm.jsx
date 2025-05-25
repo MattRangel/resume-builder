@@ -1,4 +1,5 @@
 import { useState } from "react";
+import removeSvg from "/src/assets/remove.svg";
 
 export function SuperForm({ children, submitData }) {
   const createDataObject = (formElement) => {
@@ -82,21 +83,26 @@ export function RepeatableFormSection({
   return (
     <div>
       <h2>{title}</h2>
+      <button type="button" onClick={addElement} class="positive">
+        Insert
+      </button>
       {elements.map((element, index) => (
         <div
           data-section={sectionName}
           data-repeating-section
           key={element.key}
         >
-          <button type="button" onClick={removeElement(index)}>
-            Remove
-          </button>
           {element}
+          <button
+            type="button"
+            onClick={removeElement(index)}
+            class="with-icon negative"
+          >
+            <img src={removeSvg} alt="remove" class="icon" />
+            Delete
+          </button>
         </div>
       ))}
-      <button type="button" onClick={addElement}>
-        Insert {title.toLowerCase()}
-      </button>
     </div>
   );
 }
