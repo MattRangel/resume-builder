@@ -160,7 +160,7 @@ export function Display({ data, enterEditMode }) {
   return (
     <>
       <button onClick={enterEditMode}>Edit</button>
-      <div id="portrait-container">
+      <div id={data.personal.portrait && "portrait-container"}>
         <img src={data.personal.portrait} alt="" />
       </div>
       <section>
