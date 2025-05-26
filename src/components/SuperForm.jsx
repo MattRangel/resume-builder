@@ -15,6 +15,10 @@ export function SuperForm({ children, submitData }) {
       switch (element.type) {
         case "checkbox":
           return element.checked;
+        case "file":
+          return element.files[0]
+            ? URL.createObjectURL(element.files[0])
+            : element.parentElement.querySelector("img").src || null;
         default:
           return element.value;
       }
@@ -83,7 +87,7 @@ export function RepeatableFormSection({
   return (
     <div>
       <h2>{title}</h2>
-      <button type="button" onClick={addElement} class="positive">
+      <button type="button" onClick={addElement} className="positive">
         Insert
       </button>
       {elements.map((element, index) => (
@@ -96,13 +100,34 @@ export function RepeatableFormSection({
           <button
             type="button"
             onClick={removeElement(index)}
-            class="with-icon negative"
+            className="with-icon negative"
           >
-            <img src={removeSvg} alt="remove" class="icon" />
+            <img src={removeSvg} alt="remove" className="icon" />
             Delete
           </button>
         </div>
       ))}
     </div>
+  );
+}
+
+export function ImageUpload({ title, name, imageURL }) {
+  const [imgSrc, setImgSrc] = useState(imageURL || null);
+
+  const fileUpdated = (e) => {
+    setImgSrc(URL.createObjectURL(e.target.files[0]));
+  };
+
+  return (
+    <label>
+      {title}
+      <img src={imgSrc} alt="" />
+      <input
+        type="file"
+        accept="image/png, image/jpeg"
+        name={name}
+        onChange={fileUpdated}
+      />
+    </label>
   );
 }

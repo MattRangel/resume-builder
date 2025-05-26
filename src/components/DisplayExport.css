@@ -2,13 +2,28 @@
   #root {
     display: grid;
     background-color: white;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: 45% 55%;
+    grid-template-rows: max(15rem, fit-content) auto;
     print-color-adjust: exact;
   }
 
-  #root > section:first-of-type {
-    background-color: #e0e0e0;
-    grid-column-start: span 2;
+  #root > *:nth-of-type(-1n + 1) {
+    margin: 0;
+    height: 100%;
+    border-bottom: solid black 0.2rem;
+  }
+
+  #portrait-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+      height: auto;
+      max-height: 80%;
+      max-width: 80%;
+      border: none;
+    }
   }
 
   button {

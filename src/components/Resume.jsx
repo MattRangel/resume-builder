@@ -1,7 +1,7 @@
 import "./Resume.css";
 import "./DisplayExport.css";
 
-import { SuperForm, RepeatableFormSection } from "./SuperForm.jsx";
+import { SuperForm, RepeatableFormSection, ImageUpload } from "./SuperForm.jsx";
 
 export function Form({ data, uploadData, leaveEditMode }) {
   const repeatingElements = {
@@ -102,10 +102,10 @@ export function Form({ data, uploadData, leaveEditMode }) {
 
   return (
     <SuperForm submitData={submitData}>
-      <button type="submit" class="positive">
+      <button type="submit" className="positive">
         Update Resume
       </button>
-      <button type="button" onClick={leaveEditMode} class="negative">
+      <button type="button" onClick={leaveEditMode} className="negative">
         Discard Changes
       </button>
       <div data-section="personal">
@@ -134,6 +134,11 @@ export function Form({ data, uploadData, leaveEditMode }) {
             defaultValue={data.personal?.phone || ""}
           />
         </label>
+        <ImageUpload
+          title="Portrait Photo:"
+          name="portrait"
+          imageURL={data.personal?.portrait}
+        />
       </div>
       <RepeatableFormSection
         title="Education"
@@ -155,6 +160,9 @@ export function Display({ data, enterEditMode }) {
   return (
     <>
       <button onClick={enterEditMode}>Edit</button>
+      <div id="portrait-container">
+        <img src={data.personal.portrait} alt="" />
+      </div>
       <section>
         <h1>{data.personal.name}</h1>
         <h3>Contact:</h3>
