@@ -56,7 +56,6 @@ export function SuperForm({ children, submitData }) {
 
   const handleSubmit = (e) => {
     const dataObject = createDataObject(e.target);
-    console.log(dataObject);
     submitData(dataObject);
   };
 
@@ -70,9 +69,7 @@ export function RepeatableFormSection({
   sectionName,
 }) {
   const [elements, setElements] = useState(
-    dataArray.map((data) => (
-      <RepeatingElement {...data} key={crypto.randomUUID()} />
-    )),
+    dataArray.map((data) => <RepeatingElement {...data} key={data.id} />),
   );
 
   const shiftElement = (index, amount) => {
@@ -146,6 +143,7 @@ export function RepeatableFormSection({
               Delete
             </button>
           </div>
+          <input type="hidden" value={element.key} name="id" />
         </div>
       ))}
     </div>

@@ -3,6 +3,8 @@ import "./DisplayExport.css";
 
 import { SuperForm, RepeatableFormSection, ImageUpload } from "./SuperForm.jsx";
 
+import { Fragment } from "react";
+
 export function Form({ data, uploadData, leaveEditMode }) {
   const repeatingElements = {
     education: ({
@@ -173,9 +175,9 @@ export function Display({ data, enterEditMode }) {
       </section>
       <section>
         <h1>Education</h1>
-        {data.education?.map((education, index) => (
-          <>
-            <h2 key={index}>{education.name}</h2>
+        {data.education?.map((education) => (
+          <Fragment key={education.id}>
+            <h2>{education.name}</h2>
             <strong>
               <p>{education.studyTitle}</p>
             </strong>
@@ -183,13 +185,13 @@ export function Display({ data, enterEditMode }) {
               Attended from {education.startDate} to{" "}
               {education.endDateIsCurrent ? "now" : education.endDate}
             </p>
-          </>
+          </Fragment>
         ))}
       </section>
       <section>
         <h1>Practical Experience</h1>
         {data.practical?.map((practical) => (
-          <>
+          <Fragment key={practical.id}>
             <h2>{practical.company}</h2>
             <strong>
               <p>{practical.position}</p>
@@ -204,7 +206,7 @@ export function Display({ data, enterEditMode }) {
                 <li>{line}</li>
               ))}
             </ul>
-          </>
+          </Fragment>
         ))}
       </section>
     </>
