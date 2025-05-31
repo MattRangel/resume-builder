@@ -52,6 +52,20 @@ button {
   border-radius: 0.2rem;
   padding: 0.2rem;
   margin-right: 0.5rem;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+
+  &:active {
+    filter: brightness(0.85);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: black;
+    filter: brightness(0.7);
+  }
 }
 
 button.negative {

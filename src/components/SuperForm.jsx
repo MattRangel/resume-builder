@@ -1,5 +1,7 @@
 import { useState } from "react";
 import removeSvg from "/src/assets/remove.svg";
+import upSvg from "/src/assets/up.svg";
+import downSvg from "/src/assets/down.svg";
 
 export function SuperForm({ children, submitData }) {
   const createDataObject = (formElement) => {
@@ -68,13 +70,32 @@ export function RepeatableFormSection({
   sectionName,
 }) {
   const [elements, setElements] = useState(
-    dataArray.map((data, index) => <RepeatingElement {...data} key={index} />),
+    dataArray.map((data) => (
+      <RepeatingElement {...data} key={crypto.randomUUID()} />
+    )),
   );
+
+  const shiftElement = (index, amount) => {
+    setElements(() => {
+      const newIndex = index + amount;
+      return elements
+        .toSpliced(index, 1)
+        .toSpliced(newIndex, 0, elements[index]);
+    });
+  };
+
+  const shiftPosOne = (index) => {
+    return () => shiftElement(index, 1);
+  };
+
+  const shiftNegOne = (index) => {
+    return () => shiftElement(index, -1);
+  };
 
   const addElement = () => {
     setElements((elements) => [
       ...elements,
-      <RepeatingElement key={+elements.at(-1)?.key + 1 || 0} />,
+      <RepeatingElement key={crypto.randomUUID()} />,
     ]);
   };
 
@@ -94,7 +115,7 @@ export function RepeatableFormSection({
         <div
           data-section={sectionName}
           data-repeating-section
-          key={element.key}
+          key={element.key + "_parent"}
         >
           {element}
           <button
@@ -102,8 +123,26 @@ export function RepeatableFormSection({
             onClick={removeElement(index)}
             className="with-icon negative"
           >
-            <img src={removeSvg} alt="remove" className="icon" />
+            <img src={removeSvg} alt="" className="icon" />
             Delete
+          </button>
+          <button
+            type="button"
+            onClick={shiftNegOne(index)}
+            className="with-icon positive"
+            disabled={index == 0}
+          >
+            <img src={upSvg} alt="" className="icon" />
+            Raise
+          </button>
+          <button
+            type="button"
+            onClick={shiftPosOne(index)}
+            className="with-icon positive"
+            disabled={index == elements.length - 1}
+          >
+            <img src={downSvg} alt="" className="icon" />
+            Lower
           </button>
         </div>
       ))}
