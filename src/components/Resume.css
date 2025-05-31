@@ -7,9 +7,8 @@ form > div {
   margin: 1rem 0 2rem;
 }
 
-section,
 #portrait-container {
-  margin: 1rem 0 2rem;
+  margin: 1rem 0;
 }
 
 fieldset {

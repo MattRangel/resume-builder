@@ -163,17 +163,19 @@ export function Display({ data, enterEditMode }) {
     <>
       <button onClick={enterEditMode}>Edit</button>
       <button onClick={() => print()}>Print / Export</button>
-      <div id={data.personal.portrait && "portrait-container"}>
-        <img src={data.personal.portrait} alt="" />
-      </div>
-      <section>
-        <h1>{data.personal.name}</h1>
-        <h3>Contact:</h3>
-        <ul>
-          <li>{data.personal.email}</li>
-          <li>{data.personal.phone}</li>
-        </ul>
-      </section>
+      <header>
+        <div id={data.personal.portrait && "portrait-container"}>
+          <img src={data.personal.portrait} alt="" />
+        </div>
+        <section>
+          <h1>{data.personal.name}</h1>
+          <h3>Contact:</h3>
+          <ul>
+            <li>{data.personal.email}</li>
+            <li>{data.personal.phone}</li>
+          </ul>
+        </section>
+      </header>
       <section>
         <h1>Education</h1>
         {data.education?.map((education) => (
