@@ -118,7 +118,7 @@ export function RepeatableFormSection({
           key={element.key + "_parent"}
         >
           {element}
-          <div class="actions">
+          <div className="actions">
             <button
               type="button"
               onClick={shiftNegOne(index)}
