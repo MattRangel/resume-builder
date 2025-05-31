@@ -11,7 +11,7 @@ export function Form({ data, uploadData, leaveEditMode }) {
       name = "",
       startDate = "",
       endDate = "",
-      endDateIsCurrent = true,
+      endDateIsCurrent = false,
       studyTitle = "",
     }) => {
       return (
