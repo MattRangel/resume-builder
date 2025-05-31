@@ -118,32 +118,34 @@ export function RepeatableFormSection({
           key={element.key + "_parent"}
         >
           {element}
-          <button
-            type="button"
-            onClick={removeElement(index)}
-            className="with-icon negative"
-          >
-            <img src={removeSvg} alt="" className="icon" />
-            Delete
-          </button>
-          <button
-            type="button"
-            onClick={shiftNegOne(index)}
-            className="with-icon positive"
-            disabled={index == 0}
-          >
-            <img src={upSvg} alt="" className="icon" />
-            Raise
-          </button>
-          <button
-            type="button"
-            onClick={shiftPosOne(index)}
-            className="with-icon positive"
-            disabled={index == elements.length - 1}
-          >
-            <img src={downSvg} alt="" className="icon" />
-            Lower
-          </button>
+          <div class="actions">
+            <button
+              type="button"
+              onClick={shiftNegOne(index)}
+              className="with-icon positive"
+              disabled={index == 0}
+            >
+              <img src={upSvg} alt="" className="icon" />
+              Raise
+            </button>
+            <button
+              type="button"
+              onClick={shiftPosOne(index)}
+              className="with-icon positive"
+              disabled={index == elements.length - 1}
+            >
+              <img src={downSvg} alt="" className="icon" />
+              Lower
+            </button>
+            <button
+              type="button"
+              onClick={removeElement(index)}
+              className="with-icon negative"
+            >
+              <img src={removeSvg} alt="" className="icon" />
+              Delete
+            </button>
+          </div>
         </div>
       ))}
     </div>
