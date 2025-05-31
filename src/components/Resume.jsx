@@ -162,6 +162,7 @@ export function Display({ data, enterEditMode }) {
   return (
     <>
       <button onClick={enterEditMode}>Edit</button>
+      <button onClick={() => print()}>Print / Export</button>
       <div id={data.personal.portrait && "portrait-container"}>
         <img src={data.personal.portrait} alt="" />
       </div>
